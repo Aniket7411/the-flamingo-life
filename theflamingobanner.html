@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mask Text Scroll Effect</title>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: serif;
+  }
+
+  body {
+    height: 200vh;
+    background: #f5f5f5;
+  }
+
+  .banner {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  /* Background Image */
+  .bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('./droppeditionbanner.png') center/cover no-repeat;
+    transition: opacity 0.2s linear;
+  }
+
+  /* TEXT */
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    font-size: 10vw;
+    font-weight: 600;
+    letter-spacing: 6px;
+
+    /* Image inside text */
+    background: url('./droppeditionbanner.png') center/cover no-repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Start with NO outline */
+    -webkit-text-stroke: 0px black;
+
+    transition: all 0.2s linear;
+  }
+
+  /* Optional side text */
+  .side {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .left { left: 5%; }
+  .right { right: 5%; }
+
+</style>
+</head>
+
+<body>
+
+<div class="banner">
+  <div class="bg" id="bg"></div>
+
+  <p class="side left" id="leftText">The</p>
+  <h1 class="text" id="text">FLAMINGO</h1>
+  <p class="side right" id="rightText">LIFE</p>
+</div>
+
+<script>
+  const bg = document.getElementById("bg");
+  const text = document.getElementById("text");
+  const leftText = document.getElementById("leftText");
+  const rightText = document.getElementById("rightText");
+
+  window.addEventListener("scroll", () => {
+    let scroll = window.scrollY;
+    let maxScroll = window.innerHeight;
+
+    let progress = Math.min(scroll / maxScroll, 1);
+
+    // Fade out background
+    bg.style.opacity = 1 - progress;
+
+    // Zoom out text
+    text.style.transform = `translate(-50%, -50%) scale(${1.5 - progress * 0.5})`;
+
+    // Fill text gradually
+    text.style.webkitTextFillColor = `rgba(0,0,0,${progress})`;
+
+    // --- STROKE ANIMATION (KEY PART) ---
+
+    // Stroke appears in first half
+    let strokeIn = Math.min(progress * 2, 1);
+
+    // Stroke disappears in second half
+    let strokeOut = Math.max(1 - (progress - 0.5) * 2, 0);
+
+    let finalStroke = strokeIn * strokeOut * 2;
+
+    text.style.webkitTextStroke = `${finalStroke}px black`;
+
+    // Side text fades in slightly later
+    let sideOpacity = Math.max((progress - 0.4) * 2, 0);
+    leftText.style.opacity = sideOpacity;
+    rightText.style.opacity = sideOpacity;
+  });
+</script>
+
+</body>
+</html>

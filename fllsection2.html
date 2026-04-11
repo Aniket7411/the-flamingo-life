@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<title>Responsive Carousel</title>
+</head>
+
+<body class="bg-white font-serif">
+
+<section id="section" class="relative h-screen flex items-center overflow-hidden px-[5vw]">
+
+  <!-- Carousel -->
+  <div id="carousel" class="flex gap-6 md:gap-10 transition-transform duration-700">
+
+    <!-- Items injected via JS -->
+
+  </div>
+
+</section>
+
+<!-- Cursor (desktop only feel) -->
+<div id="cursor" class="fixed text-2xl pointer-events-none z-50 hidden md:block">→</div>
+
+<script>
+const images = [
+  "https://picsum.photos/400/600?1",
+  "https://picsum.photos/400/600?2",
+  "https://picsum.photos/400/600?3",
+  "https://picsum.photos/400/600?4",
+  "https://picsum.photos/400/600?5"
+];
+
+const carousel = document.getElementById("carousel");
+const section = document.getElementById("section");
+const cursor = document.getElementById("cursor");
+
+let index = 0;
+
+/* CREATE ITEMS (mapping) */
+images.forEach((src, i) => {
+  const div = document.createElement("div");
+  div.className = "item w-[220px] md:w-[300px] h-[320px] md:h-[450px] shrink-0 cursor-pointer transition-all duration-500";
+  div.innerHTML = `<img src="${src}" class="w-full h-full object-cover">`;
+  carousel.appendChild(div);
+});
+
+const items = document.querySelectorAll(".item");
+
+/* UPDATE */
+function update() {
+  const itemWidth = items[0].offsetWidth;
+  const gap = window.innerWidth < 768 ? 24 : 40;
+
+  const center = (window.innerWidth / 2) - (itemWidth / 2);
+  const offset = index * (itemWidth + gap);
+
+  carousel.style.transform = `translateX(${center - offset}px)`;
+
+  items.forEach((el, i) => {
+    el.classList.toggle("scale-125", i === index);
+    el.classList.toggle("opacity-100", i === index);
+    el.classList.toggle("z-10", i === index);
+
+    if (i !== index) {
+      el.classList.add("scale-90", "opacity-40");
+    } else {
+      el.classList.remove("scale-90", "opacity-40");
+    }
+  });
+}
+
+/* CLICK (works for mobile tap too) */
+section.addEventListener("click", (e) => {
+  const clicked = e.target.closest(".item");
+
+  if (clicked) {
+    index = Array.from(items).indexOf(clicked);
+  } else {
+    const rect = section.getBoundingClientRect();
+    const x = e.clientX || (e.touches && e.touches[0].clientX);
+
+    if (x > rect.width / 2) index = Math.min(index + 1, items.length - 1);
+    else index = Math.max(index - 1, 0);
+  }
+
+  update();
+});
+
+/* SWIPE (mobile fix) */
+let startX = 0;
+
+section.addEventListener("touchstart", (e) => {
+  startX = e.touches[0].clientX;
+});
+
+section.addEventListener("touchend", (e) => {
+  let endX = e.changedTouches[0].clientX;
+
+  if (startX - endX > 50) {
+    index = Math.min(index + 1, items.length - 1);
+  } else if (endX - startX > 50) {
+    index = Math.max(index - 1, 0);
+  }
+
+  update();
+});
+
+/* CURSOR (desktop only) */
+section.addEventListener("mousemove", (e) => {
+  cursor.style.left = e.clientX + "px";
+  cursor.style.top = e.clientY + "px";
+
+  const rect = section.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+
+  cursor.innerHTML = x > rect.width / 2 ? "→" : "←";
+});
+
+/* RESIZE */
+window.addEventListener("resize", update);
+
+/* INIT */
+update();
+</script>
+
+</body>
+</html>

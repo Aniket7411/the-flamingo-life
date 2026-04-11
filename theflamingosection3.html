@@ -1,0 +1,117 @@
+<!-- SECTION -->
+<div class="split-section">
+
+  <!-- LEFT -->
+  <div class="panel">
+    <img src="https://images.unsplash.com/photo-1521334884684-d80222895322?q=80&w=1200" />
+    <div class="overlay left-overlay"></div>
+    <button class="btn">BUY NOW</button>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="panel">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200" />
+    <div class="overlay right-overlay"></div>
+    <button class="btn">BUY NOW</button>
+  </div>
+
+</div>
+
+<!-- STYLES -->
+<style>
+.split-section {
+  display: flex;
+  height: 100vh;
+  flex-wrap: wrap;
+}
+
+.panel {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Images */
+.panel img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay (curtain) */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  transform: translateY(0%);
+  transition: transform .5s ease;
+  z-index: 2;
+}
+
+/* Button */
+.btn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 28px;
+  border: 1px solid black;
+  background: transparent;
+  font-size: 14px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* Animation classes */
+.reveal-left {
+  transform: translateY(100%);
+}
+
+.reveal-right {
+  transform: translateY(100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .panel {
+    width: 100%;
+    height: 50vh;
+  }
+}
+</style>
+
+<!-- SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const section = document.querySelector(".split-section");
+  const left = document.querySelector(".left-overlay");
+  const right = document.querySelector(".right-overlay");
+
+  let triggered = false;
+
+  function handleScroll() {
+    const rect = section.getBoundingClientRect();
+
+    if (!triggered && rect.top < window.innerHeight * 0.8) {
+      triggered = true;
+
+      // Left first
+      setTimeout(() => {
+        left.classList.add("reveal-left");
+      }, 200);
+
+      // Right after delay
+      setTimeout(() => {
+        right.classList.add("reveal-right");
+      }, 800);
+    }
+  }
+
+  window.addEventListener("scroll", handleScroll);
+});
+</script>

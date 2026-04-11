@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Newsletter</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Josefin Sans", sans-serif;
+        font-size: clamp(1rem, 0.95rem + 0.35vw, 1.125rem);
+        background: #fff;
+        color: #000;
+      }
+
+      .newsletter-wrap {
+        position: relative;
+        left: 50%;
+        width: 100vw;
+        margin-left: -50vw;
+        height: 45vh;
+        background: #F4E9E9;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* DESKTOP DEFAULT */
+      .newsletter-content {
+        position: relative;
+        z-index: 2;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 72rem;
+        margin: 0 auto;
+        padding: clamp(0.75rem, 2vh, 1.25rem) clamp(1rem, 4vw, 4rem);
+        justify-items: start;
+        text-align: left;
+      }
+
+      @media (min-width: 768px) {
+        .newsletter-content {
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: clamp(1.5rem, 4vw, 3rem);
+          align-items: center;
+          justify-items: start;
+          text-align: left;
+        }
+      }
+
+      .col {
+        width: 100%;
+        max-width: 22rem;
+      }
+
+      .col p,
+      .col a {
+        margin: 0.35rem 0;
+        color: #000;
+        font-size: clamp(1.125rem, 1.05rem + 0.45vw, 1.4rem);
+        letter-spacing: 0.02em;
+        text-align: left;
+      }
+
+      .col a {
+        display: block;
+        text-decoration: none;
+        transition: opacity 160ms ease;
+      }
+
+      .col a:hover {
+        opacity: 0.7;
+      }
+
+      .corner {
+        position: absolute;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .corner__inner {
+        transform: translate3d(0, 0, 0);
+      }
+
+      .corner img {
+        display: block;
+        filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.08));
+      }
+
+      /* TOP LEFT */
+      .corner--tl {
+        top: 0.5rem;
+        left: 1rem;
+      }
+
+      .tl-a {
+        width: clamp(3rem, 6vw, 6rem);
+      }
+
+      /* ✅ FIXED BOTTOM RIGHT IMAGE SIZE */
+      .corner--br {
+        right: 1rem;
+        bottom: 1rem;
+        width: clamp(2.5rem, 5vw, 4rem);
+      }
+
+      .corner--br img {
+        width: 100%;
+        height: auto;
+      }
+
+      /* MOBILE FIX */
+      @media (max-width: 479px) {
+        .newsletter-content {
+          padding-left: 1rem;
+          padding-right: 1rem;
+          gap: 1.25rem;
+          text-align: center;
+          justify-items: center;
+        }
+
+        .col {
+          text-align: center;
+        }
+
+        .col p,
+        .col a {
+          text-align: center;
+        }
+
+        /* smaller image on mobile */
+        .corner--br {
+          width: clamp(2rem, 12vw, 3rem);
+          right: 0.5rem;
+          bottom: 0.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <section class="newsletter-wrap" id="newsletter">
+      <!-- TOP LEFT IMAGE -->
+      <div class="corner corner--tl">
+        <div class="corner__inner" id="cornerTLInner">
+          <img
+            class="tl-a"
+            src="https://cdn.shopify.com/s/files/1/0975/5613/6254/files/Group_16.png?v=1774874067"
+          />
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="newsletter-content">
+        <div class="col">
+            <a href="https://sumuptoday.com/collections/all">Shop</a>
+
+          <a href="https://sumuptoday.com/pages/contact">Contact us</a>
+          <a href="#shopify-section-template--25988405199166__section_pRKnrT">About us</a>
+
+        </div>
+
+        <div class="col">
+            <a href="https://www.sumuptoday.com/policies/refund-policy">Refund Policy</a>
+            <a href="https://www.sumuptoday.com/policies/terms-of-service">Terms Of Service</a>
+
+          <a href="https://www.sumuptoday.com/policies/privacy-policy">Privacy Policy</a>
+
+        </div>
+
+        <div class="col">
+          <a href="https://www.sumuptoday.com/policies/shipping-policy">Shipping Policy</a>
+          <p>Help</p>
+
+        </div>
+      </div>
+
+      <!-- BOTTOM RIGHT IMAGE -->
+      <div class="corner corner--br">
+        <div class="corner__inner" id="cornerBRInner">
+          <img
+            src="https://cdn.shopify.com/s/files/1/0975/5613/6254/files/Group_15.png?v=1774870162"
+          />
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function clamp01(x) {
+        return Math.max(0, Math.min(1, x));
+      }
+
+      function smootherStep(t) {
+        const x = clamp01(t);
+        return x * x * x * (x * (x * 6 - 15) + 10);
+      }
+
+      function lerp(a, b, t) {
+        return a + (b - a) * t;
+      }
+
+      (function () {
+        const section = document.getElementById("newsletter");
+        const tlInner = document.getElementById("cornerTLInner");
+        const brInner = document.getElementById("cornerBRInner");
+
+        let ticking = false;
+
+        const update = () => {
+          const vh = window.innerHeight || 1;
+          const vw = window.innerWidth || 1;
+          const rect = section.getBoundingClientRect();
+
+          const start = vh * 0.95;
+          const end = vh * 0.25;
+          let t = clamp01((start - rect.top) / (start - end));
+          t = smootherStep(t);
+
+          const offPx = Math.min(52, Math.max(22, vw * 0.065));
+
+          const tlX = lerp(-offPx, 0, t);
+          const tlY = lerp(-offPx, 0, t);
+          const brX = lerp(offPx, 0, t);
+          const brY = lerp(offPx, 0, t);
+
+          tlInner.style.transform = `translate3d(${tlX}px, ${tlY}px, 0)`;
+          brInner.style.transform = `translate3d(${brX}px, ${brY}px, 0)`;
+
+          ticking = false;
+        };
+
+        const onScroll = () => {
+          if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+          }
+        };
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+      })();
+    </script>
+  </body>
+</html>

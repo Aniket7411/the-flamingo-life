@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Curtain Reveal</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .curtain {
+      transform: translateY(0%);
+      transition: transform 1s cubic-bezier(0.77,0,0.18,1);
+    }
+
+    .curtain.reveal {
+      transform: translateY(100%);
+    }
+  </style>
+</head>
+
+<body class="bg-white">
+
+<!-- Spacer (for testing scroll) -->
+<div class="h-[120vh]"></div>
+
+<!-- SECTION -->
+<section id="contact-section" class="flex flex-col md:flex-row w-full min-h-screen">
+
+  <!-- LEFT IMAGE -->
+  <div class="relative w-full md:w-1/2 h-[60vh] md:h-auto overflow-hidden">
+    
+    <img
+      src="https://images.unsplash.com/photo-1521334884684-d80222895322?q=80&w=1200"
+      class="w-full h-full object-cover"
+    />
+
+    <!-- CURTAIN -->
+    <div id="curtain" class="curtain absolute inset-0 bg-white z-10"></div>
+
+  </div>
+
+  <!-- RIGHT CONTENT -->
+  <div class="w-full md:w-1/2 bg-[#f5f5f5] flex items-center justify-center px-6 py-12 md:px-16">
+    
+    <div class="w-full max-w-lg space-y-8">
+
+      <h1 class="text-[clamp(2.5rem,5vw,4rem)] font-serif leading-tight">
+        DROP IN <br/> ANYTIME
+      </h1>
+
+      <p class="text-sm text-black/70">
+        For tailored guidance or exclusive inquiries, contact our team.
+      </p>
+
+      <form class="space-y-6">
+        <input type="text" placeholder="Name & Surname"
+          class="w-full border-b border-black/40 bg-transparent py-2 outline-none" />
+
+        <input type="text" placeholder="Phone Number"
+          class="w-full border-b border-black/40 bg-transparent py-2 outline-none" />
+
+        <input type="email" placeholder="E-mail address"
+          class="w-full border-b border-black/40 bg-transparent py-2 outline-none" />
+
+        <textarea placeholder="Message"
+          class="w-full border-b border-black/40 bg-transparent py-2 outline-none"></textarea>
+      </form>
+
+    </div>
+  </div>
+
+</section>
+
+<script>
+const section = document.getElementById("contact-section");
+const curtain = document.getElementById("curtain");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      curtain.classList.add("reveal");
+      observer.unobserve(section); // trigger only once
+    }
+  });
+}, {
+  threshold: 0.4 // triggers when ~40% visible
+});
+
+observer.observe(section);
+</script>
+
+</body>
+</html>

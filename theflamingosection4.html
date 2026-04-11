@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- ✅ Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <title>Elegant Section</title>
+
+  <style>
+    /* Smooth text animation */
+    .heading {
+      letter-spacing: 12px;
+      transition: all 0.2s linear;
+    }
+  </style>
+</head>
+
+<body class="bg-white">
+  <div class="h-[100vh]"></div>
+
+  <!-- SECTION -->
+  <section class="relative h-screen w-full overflow-hidden" id="hero">
+
+    <!-- Background Image -->
+    <div 
+      class="absolute inset-0 bg-cover bg-center"
+      style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600');"
+    ></div>
+
+    <!-- Top Left Text -->
+    <div class="absolute top-6 left-6 md:top-10 md:left-10 z-10 text-black/50 text-sm md:text-base leading-relaxed">
+      <p>
+        .make yourself comfortable<br>
+        trust your body and feel free<br>
+        in every self manifestation+
+      </p>
+    </div>
+
+    <!-- Bottom Right Heading -->
+    <div 
+      id="heading"
+      class="heading absolute bottom-8 right-6 md:bottom-16 md:right-16 z-10 text-white font-light text-[10vw] md:text-[6vw] leading-[1.1]"
+    >
+      modern twist<br>
+      on classical<br>
+      elegance
+    </div>
+
+  </section>
+
+  <!-- Spacer for scroll -->
+
+  <!-- SCRIPT -->
+  <script>
+    const heading = document.getElementById("heading");
+    const section = document.getElementById("hero");
+
+    window.addEventListener("scroll", () => {
+      const rect = section.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      let progress = 1 - (rect.top / windowHeight);
+      progress = Math.min(Math.max(progress, 0), 1);
+
+      // Letter spacing animation
+      const maxSpacing = 12;
+      const minSpacing = 1;
+
+      const spacing = maxSpacing - (maxSpacing - minSpacing) * progress;
+      heading.style.letterSpacing = spacing + "px";
+
+      // Optional: fade + slight motion
+      heading.style.opacity = progress;
+      heading.style.transform = `translateY(${30 - progress * 30}px)`;
+    });
+  </script>
+
+</body>
+</html>

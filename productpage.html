@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <title>Product Detail</title>
+
+  <style>
+    body {
+      font-family: 'Josefin Sans', sans-serif;
+    }
+  </style>
+</head>
+
+<body class="bg-[#f4f4f4]">
+
+<section class="w-full px-4 md:px-10 lg:px-16 py-10 md:py-16">
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
+
+    <!-- LEFT IMAGES -->
+    <div class="grid grid-cols-1 gap-6">
+
+      <img 
+        src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=1200"
+        class="w-full object-cover"
+      />
+
+      <img 
+        src="https://images.unsplash.com/photo-1520974735194-75a0c5f1f91f?q=80&w=1200"
+        class="w-full object-cover"
+      />
+
+      <p class="text-xs tracking-widest mt-2">
+        THE BIGGEST LINEUP IN TOWN
+      </p>
+
+    </div>
+
+    <!-- RIGHT CONTENT -->
+    <div class="w-full">
+
+      <!-- TITLE -->
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-light leading-tight mb-6">
+        DROP 6 THE <br/> ARGYLE KNIT SET
+      </h1>
+
+      <!-- ACCORDION -->
+      <div class="space-y-6">
+
+        <!-- ITEM -->
+        <details open class="border-b pb-4">
+          <summary class="cursor-pointer font-medium flex justify-between items-center">
+            DESCRIPTION
+            <span>⌄</span>
+          </summary>
+          <p class="text-sm text-gray-700 mt-3 leading-relaxed">
+            Step into effortless elegance with this grey three-piece set, thoughtfully designed for a polished, modern look. The set includes a tailored skirt, coordinating vest with a subtle argyle pattern, and a sleek button-up shirt, creating a cohesive outfit.
+          </p>
+        </details>
+
+        <details class="border-b pb-4">
+          <summary class="cursor-pointer font-medium flex justify-between items-center">
+            SIZE & FIT
+            <span>⌄</span>
+          </summary>
+          <p class="text-sm text-gray-700 mt-3">
+            Model is 5'11" / 180cm, wearing size one size.
+          </p>
+        </details>
+
+        <details class="border-b pb-4">
+          <summary class="cursor-pointer font-medium flex justify-between items-center">
+            CARE & COMPOSITION
+            <span>⌄</span>
+          </summary>
+          <p class="text-sm text-gray-700 mt-3">
+            60% cotton, 40% wool. Use mild detergent; do not bleach.
+          </p>
+        </details>
+
+        <details class="border-b pb-4">
+          <summary class="cursor-pointer font-medium flex justify-between items-center">
+            SHIPPING
+            <span>⌄</span>
+          </summary>
+          <p class="text-sm text-gray-700 mt-3">
+            Ships within 3–5 business days.
+          </p>
+        </details>
+
+        <details class="border-b pb-4">
+          <summary class="cursor-pointer font-medium flex justify-between items-center">
+            RETURNS
+            <span>⌄</span>
+          </summary>
+          <p class="text-sm text-gray-700 mt-3">
+            Returns accepted within 7 days.
+          </p>
+        </details>
+
+      </div>
+
+      <!-- PRICE + CART -->
+      <div class="mt-10">
+
+        <!-- PRICE -->
+        <div class="flex items-center justify-between mb-6">
+          <p class="text-xl font-medium">$500 USD</p>
+
+          <!-- QUANTITY -->
+          <div class="flex items-center border">
+            <button class="px-3 py-1">-</button>
+            <span class="px-4">1</span>
+            <button class="px-3 py-1">+</button>
+          </div>
+        </div>
+
+        <!-- BUTTON -->
+        <button class="w-full bg-black text-white py-4 tracking-wide hover:bg-gray-800 transition">
+          Add to Cart
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</body>
+</html>
